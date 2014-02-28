@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css">
+  pre{
+    margin:8px 0; padding:0 16px 8px;
+    background:rgb(240,240,240);
+  }
+  pre code:before{
+    display:block;
+    margin:0 0 0 -8px; padding:0;
+    content:'code';
+    font-size:8px; line-height:10px;
+    color:rgb(100,100,100);
+    border-bottom:dotted 1px rgb(120,120,120);
+  }
+  pre.html code:before{ content:'HTML'; }
+  pre.css code:before{ content:'CSS'; }
+  pre.javascript code:before{ content:'JavaScript'; }
+
+  ul.demo1 {
+    width:360px; height:18px;
+    margin:0; padding:0;
+    list-style:none;
+  }
+  ul.demo1 li {
+    display:block;
+    width:20px; height:18px;
+    margin:0 6px; padding:0;
+    float:left;
+    cursor:pointer;
+  }
+  ul.demo1 li.disable { cursor:auto; }
+  ul.demo1 li.dot { cursor:auto; }
+  ul.demo1 li.active { border-bottom:solid 1px rgb(227,27,94); }
+  ul.demo1 li span.container{
+    display:block;
+    width:auto; height:18px;
+    margin:0; padding:0;
+    position:relative;
+    left:50%;
+    float:left;
+  }
+  ul.demo1 li.disable span.container{ display:none; }
+  ul.demo1 li span.container span{
+    display:block;
+    width:auto; height:18px;
+    margin:0 auto; padding:0;
+    position:relative;
+    right:50%;
+    float:left;
+    text-indent:-65535px;
+    background:url(ph01.png) no-repeat 0 0;
+    user-select:none; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none;
+  }
+  ul.demo1 li span.container span.spn0{ width:9px; }
+  ul.demo1 li span.container span.spn1{ width:6px; background-position:-9px 0; }
+  ul.demo1 li span.container span.spn2{ width:9px; background-position:-15px 0; }
+  ul.demo1 li span.container span.spn3{ width:9px; background-position:-24px 0; }
+  ul.demo1 li span.container span.spn4{ width:9px; background-position:-33px 0; }
+  ul.demo1 li span.container span.spn5{ width:9px; background-position:-42px 0; }
+  ul.demo1 li span.container span.spn6{ width:9px; background-position:-51px 0; }
+  ul.demo1 li span.container span.spn7{ width:8px; background-position:-60px 0; }
+  ul.demo1 li span.container span.spn8{ width:9px; background-position:-68px 0; }
+  ul.demo1 li span.container span.spn9{ width:9px; background-position:-77px 0; }
+  ul.demo1 li span.container span.spdot{ width:12px; background-position:-86px 0; }
+  ul.demo1 li.active span.container span.spn0{ background-position:0 -18px; }
+  ul.demo1 li.active span.container span.spn1{ background-position:-9px -18px; }
+  ul.demo1 li.active span.container span.spn2{ background-position:-15px -18px; }
+  ul.demo1 li.active span.container span.spn3{ background-position:-24px -18px; }
+  ul.demo1 li.active span.container span.spn4{ background-position:-33px -18px; }
+  ul.demo1 li.active span.container span.spn5{ background-position:-42px -18px; }
+  ul.demo1 li.active span.container span.spn6{ background-position:-51px -18px; }
+  ul.demo1 li.active span.container span.spn7{ background-position:-60px -18px; }
+  ul.demo1 li.active span.container span.spn8{ background-position:-68px -18px; }
+  ul.demo1 li.active span.container span.spn9{ background-position:-77px -18px; }
+
+  #demo2 {
+    width:320px; height:20px;
+    margin:0; padding:0;
+    list-style:none;
+  }
+  #demo2 li {
+    display:block;
+    width:20px; height:20px;
+    margin:0 6px; padding:0;
+    float:left;
+    background:url(ph02.png) no-repeat 0 0;
+    cursor:pointer;
+  }
+  #demo2 li.disable { display:none; }
+  #demo2 li.active { background-position:-20px 0; }
+  #demo2 li span.container{ display:none; }
+</style>
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+  <script src="../jquery.simplepager.js" type="text/javascript"></script>
+<script type="text/javascript">
+  var demo3;
+  $(function(){
+    $('pre code').each(function(){ $(this).html($(this).html().replace(/</g,'&lt;')); });
+    $('#demo1').sPager({pages:50});
+    $('#demo2').sPager({pages:10,items:10,showEdge:false});
+    demo3 =$('#demo3').sPager({pages:50});
+    $('#demo4').sPager({
+      pages:30, items:7, showEdge:true,
+      onPageChange:function(argStatus){
+        var tmpTxt ='onPageChange: ページが切り替わりました。\n\n';
+        tmpTxt +='currentPage: '+ argStatus.currentPage +' /* 現在のページ */\n';
+        $('#demo4event textarea').html(tmpTxt);
+      }
+    });
+  });
+</script>
+</head>
+<body>
+  <h1>simple pager plugin</h1>
+  <p>Version 0.9.0<br>
+    <a href="http://infograve.github.io/jquery.simplepager/">http://infograve.github.io/jquery.simplepager/</a><br>
+    Released under the MIT license<br>
+    <a href="http://sourceforge.jp/projects/opensource/wiki/licenses/MIT_license">http://sourceforge.jp/projects/opensource/wiki/licenses/MIT_license</a>
+  </p>
+  <h2>使い方</h2>
+<pre class="html"><code>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+<script src="../jquery.simplepager.js" type="text/javascript"></script>
+<ul id="demo"></ul>
+</code></pre>
+<pre class="css"><code>
+#demo {
+  width:360px; height:18px;
+  margin:0; padding:0;
+  list-style:none;
+}
+#demo li {
+  display:block;
+  width:20px; height:18px;
+  margin:0 6px; padding:0;
+  float:left;
+  cursor:pointer;
+}
+#demo li.disable { cursor:auto; }
+#demo li.dot { cursor:auto; }
+#demo li.active { border-bottom:solid 1px rgb(227,27,94); }
+#demo li span.container{
+  display:block;
+  width:auto; height:18px;
+  margin:0; padding:0;
+  position:relative;
+  left:50%;
+  float:left;
+}
+#demo li.disable span.container{ display:none; }
+#demo li span.container span{
+  display:block;
+  width:auto; height:18px;
+  margin:0 auto; padding:0;
+  position:relative;
+  right:50%;
+  float:left;
+  text-indent:-65535px;
+  background:url(ph01.png) no-repeat 0 0;
+  user-select:none;
+}
+#demo li span.container span.spn0{ width:9px; }
+#demo li span.container span.spn1{ width:6px; background-position:-9px 0; }
+#demo li span.container span.spn2{ width:9px; background-position:-15px 0; }
+#demo li span.container span.spn3{ width:9px; background-position:-24px 0; }
+#demo li span.container span.spn4{ width:9px; background-position:-33px 0; }
+#demo li span.container span.spn5{ width:9px; background-position:-42px 0; }
+#demo li span.container span.spn6{ width:9px; background-position:-51px 0; }
+#demo li span.container span.spn7{ width:8px; background-position:-60px 0; }
+#demo li span.container span.spn8{ width:9px; background-position:-68px 0; }
+#demo li span.container span.spn9{ width:9px; background-position:-77px 0; }
+#demo li span.container span.spdot{ width:12px; background-position:-86px 0; }
+#demo li.active span.container span.spn0{ background-position:0 -18px; }
+#demo li.active span.container span.spn1{ background-position:-9px -18px; }
+#demo li.active span.container span.spn2{ background-position:-15px -18px; }
+#demo li.active span.container span.spn3{ background-position:-24px -18px; }
+#demo li.active span.container span.spn4{ background-position:-33px -18px; }
+#demo li.active span.container span.spn5{ background-position:-42px -18px; }
+#demo li.active span.container span.spn6{ background-position:-51px -18px; }
+#demo li.active span.container span.spn7{ background-position:-60px -18px; }
+#demo li.active span.container span.spn8{ background-position:-68px -18px; }
+#demo li.active span.container span.spn9{ background-position:-77px -18px; }
+</code></pre>
+<pre class="javascript"><code>
+$(function(){
+  $('#demo').sPager({pages:50});
+});
+</code></pre>
+  <ul id="demo1" class="demo1"></ul><br>
+<pre class="css"><code>
+#demo {
+  width:320px; height:20px;
+  margin:0; padding:0;
+  list-style:none;
+}
+#demo li {
+  display:block;
+  width:20px; height:20px;
+  margin:0 6px; padding:0;
+  float:left;
+  background:url(ph02.png) no-repeat 0 0;
+  cursor:pointer;
+}
+#demo li.disable { display:none; }
+#demo li.active { background-position:-20px 0; }
+#demo li span.container{ display:none; }
+</code></pre>
+<pre class="javascript"><code>
+$(function(){
+  $('#demo').sPager({pages:10,items:10,showEdge:false});
+});
+</code></pre>
+  <ul id="demo2"></ul><br>
+
+  <h2>Javascriptでの操作</h2>
+<pre class="javascript"><code>
+$(function(){
+  var demo =$('#demo').sPager({pages:50});
+});
+</code></pre>
+  <ul id="demo3" class="demo1"></ul><br>
+<form id="demo3control">
+  <input type="button" value="demo.forward()" onclick='demo3.forward();'></input>
+  <input type="button" value="demo.rewind()" onclick='demo3.rewind();'></input><br>
+  page:<input name="page" type="text" value="0" size="1"></input> <input type="button" value="demo.pageTo(x)" onclick='demo3.pageTo(this.form.page.value);'></input><br>
+  <input type="button" value="demo.getCurrentPage()" onclick='var tmpV=demo3.getCurrentPage(); window.alert(tmpV+" ページにいます。");'></input>
+</form>
+  <h2>オプションとイベント</h2>
+<pre class="javascript"><code>
+$(function(){
+  $('#demo').sPager({
+    pages:30, /* ページ数 */
+    items:7, /* 中央のコマ数 */
+    showEdge:true, /* 先頭ページ、終了ページ を表示するか？ */
+    onPageChange:function(argStatus){ ..... } /* ページ切替時 */
+  });
+});
+</code></pre>
+  <ul id="demo4" class="demo1"></ul><br>
+<form id="demo4event">
+  <textarea name="display" cols="80" rows="25"></textarea>
+</form>
+<p>&copy; Ko1.Imamura 2014-</p>
+</body>
+</html>
